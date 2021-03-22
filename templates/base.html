@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{%block title%}{%endblock %}</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Material+Icons&display=block" rel="stylesheet"> 
+
+    <!-- Required styles for Material Web -->
+    <link rel="stylesheet" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
+            
+    <!-- Required Material Web JavaScript library -->
+    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+    <!-- Instantiate single textfield component rendered in the document -->
+    <script>
+      mdc.textField.MDCTextField.attachTo(document.querySelector('.mdc-text-field'));
+    </script>   
+    <script src = '/static/javascript.js'></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <!--CDN pro bootstrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+   
+
+    <style>
+
+      .mdc-button__icon{
+        color:black;
+        transform : scale(1.5)
+      }
+      .invbord{
+        color : gray;
+        border-top  : None;
+        border-left : None;
+        border-right: None;
+      }
+
+      .mdc-tab-bar {
+        background-color: rgba(32, 26, 26, 0.87);
+        
+        --mdc-theme-primary: white;
+        --mdc-text-transform: yellow;
+        --mdc-tab-color-default: green;
+        --mdc-tab-text-label-color-default: green;
+        --mdc-tab-stacked-height: 100px;
+      }
+      .mdc-text-field__input{
+      background-color:white;
+      }
+
+      .container {
+      width: 300px;
+      height: 50vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center
+      }
+      footer{
+        background-color:rgba(32, 26, 26, 0.027);
+        width: 100%;
+        height: 100px;
+        bottom:0;
+        left:0;
+        position:fixed;
+        flex-shrink:0;
+        flex-direction:row;
+        
+      }
+      .app{
+        min-height:100vh
+      }
+      
+    </style>
+    {%block other%}{%endblock%}
+</head>
+
+<div class="bg-light text-center text-lg-start">
+  <!-- Copyright -->
+ <div class="text-center p-3" style="background-color: rgba(32, 26, 26, 0.87);
+   © 2020 Copyright:
+   <a class="text-white" href="https://mdbootstrap.com/"><br></a>
+   
+ </div>
+</div>  
+
+ <script>
+   import {MDCTabBar} from '@material/tab-bar';
+  const MDCFoo = mdc.foo.MDCFoo;
+  const MDCFooFoundation = mdc.foo.MDCFooFoundation;
+  const tabBar = new MDCTabBar(document.querySelector('.mdc-tab-bar'));
+</script>
+
+ {% block content%}
+      {%endblock%}
+      
+      
+</body>
+{%block footer%}
+{%endblock%}
+
+
+</html>

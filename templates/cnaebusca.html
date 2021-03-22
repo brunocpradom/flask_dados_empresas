@@ -1,0 +1,169 @@
+{%extends 'base.html'%}
+{%block title%}Busca_CNPJ{% endblock%}
+
+{%block content%}
+
+
+
+<div class='container'>
+  
+  
+  
+ 
+  <div class="mb-3">
+    <label for="exampleFormControlInput1" class="form-label"></label>
+    <input type="text" class="form-control invbord" id="exampleFormControlInput1" placeholder="Atividade Econômica" name = 'ativ_econom'>
+  </div>
+  <br>
+
+
+ <button class="mdc-button">
+  <div class="mdc-button__ripple"></div>
+  <i class="material-icons mdc-button__icon" aria-hidden="true"
+    >search</i
+  >
+  <span class="mdc-button__label"></span>
+</button>
+
+</div>
+
+<br>
+<br><br><br><br><br>
+
+{%endblock %}
+{%block footer%}
+<footer>
+<div class="mdc-tab-bar" role="tablist">
+  <div class="mdc-tab-scroller">
+    <div class="mdc-tab-scroller__scroll-area">
+      <div class="mdc-tab-scroller__scroll-content" >
+
+        <a href='/cnae' class="mdc-tab " role="tab" aria-selected="true" tabindex="0"  >
+
+          <span class="mdc-tab__content" >
+            <span class="mdc-tab__icon material-icons" aria-hidden="true">fiber_manual_record</span>
+            <span class="mdc-tab__text-label" >ESPECÍFICO</span>
+          </span>
+
+          <span class="mdc-tab-indicator ">
+            <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+            
+          </span>
+
+          <span class="mdc-tab__ripple"></span>
+        </a>
+
+        <a href ='/cnaeporsetor' class="mdc-tab " role="tab" aria-selected="true" id = 'teste' tabindex="1"  >
+          <span class="mdc-tab__content">
+            <span class="mdc-tab__icon material-icons" aria-hidden="true">fiber_manual_record</span>
+            <span class="mdc-tab__text-label">POR SETOR</span>
+          </span>
+          <span class="mdc-tab-indicator ">
+            <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+          </span>
+          <span class="mdc-tab__ripple"></span>
+        </a>
+
+        <a href='/cnaeporuf' class="mdc-tab " role="tab" aria-selected="true" tabindex="2">
+          <span class="mdc-tab__content">
+            <span class="mdc-tab__icon material-icons" aria-hidden="true">fiber_manual_record</span>
+            <span class="mdc-tab__text-label">POR UF</span>
+          </span>
+          <span class="mdc-tab-indicator ">
+            <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+          </span>
+          <span class="mdc-tab__ripple"></span>
+        </a>
+
+        <a href='/cnaebusca' class="mdc-tab mdc-tab--active" role="tab" aria-selected="true" tabindex="3">
+          <span class="mdc-tab__content">
+            <span class="mdc-tab__icon material-icons" aria-hidden="true">fiber_manual_record</span>
+            <span class="mdc-tab__text-label">BUSCA</span>
+          </span>
+          <span class="mdc-tab-indicator mdc-tab-indicator--active ">
+            <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+          </span>
+          <span class="mdc-tab__ripple"></span>
+        </a>
+
+        
+
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+
+  
+    <div class="mdc-tab-bar" role="tablist">
+        <div class="mdc-tab-scroller">
+          <div class="mdc-tab-scroller__scroll-area">
+            <div class="mdc-tab-scroller__scroll-content" >
+  
+              <a href='/cnpj' class="mdc-tab " role="tab" aria-selected="true" tabindex="0"  >
+  
+                <span class="mdc-tab__content" >
+                  <span class="mdc-tab__icon material-icons" aria-hidden="true">fiber_manual_record</span>
+                  <span class="mdc-tab__text-label" >CNPJ</span>
+                </span>
+  
+                <span class="mdc-tab-indicator mdc-tab-indicator--active">
+                  <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+                  
+                </span>
+  
+                <span class="mdc-tab__ripple"></span>
+              </a>
+  
+              <a href ='/cnae' class="mdc-tab mdc-tab--active" role="tab" aria-selected="true" id = 'teste' tabindex="1"  >
+                <span class="mdc-tab__content">
+                  <span class="mdc-tab__icon material-icons" aria-hidden="true">fiber_manual_record</span>
+                  <span class="mdc-tab__text-label">CNAE</span>
+                </span>
+                <span class="mdc-tab-indicator mdc-tab-indicator--active">
+                  <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+                </span>
+                <span class="mdc-tab__ripple"></span>
+              </a>
+  
+              <a href='/municipio' class="mdc-tab " role="tab" aria-selected="true" tabindex="2">
+                <span class="mdc-tab__content">
+                  <span class="mdc-tab__icon material-icons" aria-hidden="true">fiber_manual_record</span>
+                  <span class="mdc-tab__text-label">MUNICIPIOS</span>
+                </span>
+                <span class="mdc-tab-indicator mdc-tab-indicator--active">
+                  <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+                </span>
+                <span class="mdc-tab__ripple"></span>
+              </a>
+  
+              <a href='/socios' class="mdc-tab " role="tab" aria-selected="true" tabindex="3">
+                <span class="mdc-tab__content">
+                  <span class="mdc-tab__icon material-icons" aria-hidden="true">fiber_manual_record</span>
+                  <span class="mdc-tab__text-label">SÓCIOS</span>
+                </span>
+                <span class="mdc-tab-indicator mdc-tab-indicator--active">
+                  <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+                </span>
+                <span class="mdc-tab__ripple"></span>
+              </a>
+  
+              <!-- <a href = '/graficos' class="mdc-tab " role="tab" aria-selected="true" tabindex="4">
+                <span class="mdc-tab__content">
+                  <span class="mdc-tab__icon material-icons" aria-hidden="true">fiber_manual_record</span>
+                  <span class="mdc-tab__text-label">GRÁFICOS</span>
+                </span>
+                <span class="mdc-tab-indicator mdc-tab-indicator--active">
+                  <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+                </span>
+                <span class="mdc-tab__ripple"></span>
+              </a> -->
+  
+            </div>
+          </div>
+        </div>
+      </div>
+</footer>    
+{%endblock%}
