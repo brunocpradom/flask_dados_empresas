@@ -1,0 +1,59 @@
+.mdc-button__icon{
+    color:black;
+    transform : scale(1.5)
+  }
+  .invbord{
+    color : gray;
+    border-top  : None;
+    border-left : None;
+    border-right: None;
+  }
+
+  .mdc-tab-bar {
+    background-color: rgba(32, 26, 26, 0.87);
+    
+    --mdc-theme-primary: white;
+    --mdc-text-transform: yellow;
+    --mdc-tab-color-default: green;
+    --mdc-tab-text-label-color-default: green;
+    --mdc-tab-stacked-height: 100px;
+  }
+  .mdc-text-field__input{
+  background-color:white;
+  }
+
+  .container {
+  width: 300px;
+  height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center
+  }
+  footer{
+    background-color:rgba(32, 26, 26, 0.027);
+    width: 100%;
+    height: 100px;
+    bottom:0;
+    left:0;
+    position:fixed;
+    flex-shrink:0;
+    flex-direction:row;
+    
+  }
+  .app{
+    min-height:100vh
+  }
+
+
+  @media only screen and (max-width: 767px) {
+    .mdc-tab__text-label{
+        font-size:12px!important
+    }
+    .material-icons{
+        display:none
+    }
+    .mdc-tab{
+        width:19px
+    }
+}
