@@ -1,22 +1,23 @@
 import sys
+
 from flask import Flask, render_template,flash, request,redirect , url_for, session, send_file
-from pymongo import MongoClient
-# import matplotlib
-# matplotlib.use('Agg')
-# import matplotlib.pyplot as plt
+
+from database import connexion
+from helpers import situacao_cadastral
 
 app = Flask(__name__)
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
+
 @app.route('/')
 def home():
-    return render_template('cnpj.html')
+    return render_template('index.html')
 
 @app.route('/cnpj',methods= ['GET', 'POST'])
 def cnpj():
     if request.method =='POST':
-        client = MongoClient()
-        db = client.dados_empresas
+        
+        db = connexion()
         documents = db.empresas
         
         cnpj = request.form['cnpj']
@@ -31,11 +32,6 @@ def cnpj():
         for i in result:
             datas.append(i)
         
-        data_table = []
-        for n in range(len(datas)):
-            for i in datas[n]:
-                data_table.append(datas[n][i])  
-        
             
             
         return render_template('datatable.html', datas = datas)
@@ -46,8 +42,7 @@ def cnpj():
 @app.route('/cnae',methods = ['GET', 'POST'])
 def cnae():
     if request.method =='POST':
-        client = MongoClient()
-        db = client.dados_empresas
+        db = connexion()
         documents = db.empresas
         
         cnae = request.form['cnae']
@@ -56,7 +51,7 @@ def cnae():
         
         texto = {}
         texto['CNAE_fiscal'] = cnae
-        texto['Município'] = municipio
+        texto['Município'] = municipio.upper()
         texto['Situação_cadastral'] = sit_cad
         print(texto,file=sys.stderr)
         
@@ -65,20 +60,9 @@ def cnae():
         datas=[]
         for i in result:
             datas.append(i)
-        for i in datas:
-            print(i,file=sys.stderr)
-            print('',file=sys.stderr)
-            
-        data_table = []
-        for n in range(len(datas)):
-            for i in datas[n]:
-                data_table.append(datas[n][i])  
-        #for i in data_table:
-        #    print(i,file=sys.stderr)
-        #print(data_table,file=sys.stderr)
-        
             
             
+
         return render_template('datatable.html', datas = datas)
     if request.method == 'GET':
         return render_template('cnae.html')
@@ -86,8 +70,8 @@ def cnae():
 @app.route('/municipio',methods =['GET','POST'])
 def municipio():
     if request.method =='POST':
-        client = MongoClient()
-        db = client.dados_empresas
+        
+        db = connexion()
         documents = db.empresas
         
         municipio = request.form['municipio']
@@ -103,29 +87,17 @@ def municipio():
         datas=[]
         for i in result:
             datas.append(i)
-        for i in datas:
-            print(i,file=sys.stderr)
-            print('',file=sys.stderr)
-            
-        data_table = []
-        for n in range(len(datas)):
-            for i in datas[n]:
-                data_table.append(datas[n][i])  
-        #for i in data_table:
-        #    print(i,file=sys.stderr)
-        #print(data_table,file=sys.stderr)
-        
-            
-            
+    
         return render_template('datatable.html', datas = datas)
+
     if request.method == 'GET':
         return render_template('municipio.html')
 
 @app.route('/socios', methods = ['GET', 'POST'])
 def socios():
     if request.method =='POST':
-        client = MongoClient()
-        db = client.dados_empresas
+        
+        db = connexion()
         socios = db.socios
         
         cnpj = request.form['cnpj']
@@ -142,14 +114,14 @@ def socios():
         
        
         return render_template('datatablesocios.html', datas = socios_dict)
+
     if request.method == 'GET':
         return render_template('socios.html')
 
 @app.route('/socios/nome',methods =['GET', 'POST'])
 def socios_nome():
     if request.method == 'POST':
-        client = MongoClient()
-        db = client.dados_empresas
+        db = connexion()
         socios = db.socios
         
         nome_socio = request.form['nome']
@@ -185,6 +157,104 @@ def socios_nome():
     
     if request.method == 'GET':
         return render_template('sociosnome.html')
+
+@app.route('/cnaeporsetor',methods = ['GET', 'POST'])
+def cnae_por_setor():
+    if request.method == 'POST':
+        db = connexion()
+        documents = db.empresas
+
+        cod_setor = request.form['cod_setor']
+        municipio = request.form['municipio']
+        sit_cad = request.form['sit_cad']
+        print(cod_setor)
+        
+        cnae_setor ={'A': "(^01\w*|^02\w*|^03\w*)" ,
+            'B': "(^05\w*|^06\w*|^07\w*|^08\w*|^09\w*)" , 
+            'C': "(^10\w*|^11\w*|^12\w*|^13\w*|^14\w*|^15\w*|^16\w*|^17\w*|^18\w*|^19\w*|^20\w*|^21\w*|^22\w*|^23\w*|^24\w*|^25\w*|^26\w*|^27\w*|^28\w*|^29\w*|^30\w*|^31\w*|^32\w*|^33\w*)" , 
+            'D': "(^35\w*)" , 
+            'E': "(^36\w*|^37\w*|^38\w*|^39\w*)",
+            'F': "(^41\w*|^42\w*|^43\w*)" , 
+            'G': "(^45\w*|^46\w*|^47\w*)",
+            'H': "(^49\w*|^50\w*|^51\w*|^52\w*|^53\w*)" , 
+            'I': "(^55\w*|^56\w*)" , 
+            'J': "(^58\w*|^59\w*|^60\w*|^61\w*|^62\w*|^63\w*)" , 
+            'K': "(^64\w*|^65\w*|^66\w*)" , 
+            'L': "(^68\w*)" , 
+            'M': "(^69\w*|^70\w*|^71\w*|^72\w*|^73\w*|^74\w*|^75\w*)" , 
+            'N': "(^77\w*|^78\w*|^79\w*|^80\w*|^81\w*|^82\w*)" , 
+            'O': "(^84\w*)" , 
+            'P': "(^85\w*)" , 
+            'Q': "(^86\w*|^87\w*|^88\w*)",
+            'R': "(^90\w*|^91\w*|^92\w*|^93\w*)" , 
+            'S': "(^94\w*|^95\w*|^96\w*)" , 
+            'T': "(^97\w*)" , 
+            'U': "(^99\w*)" } 
+
+        list_alf =['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U']
+        
+        for alf in list_alf:
+            if cod_setor.upper() == alf:
+                situação_cadastral = sit_cad                
+                
+                texto = {}
+                texto['$regex'] = cnae_setor[alf]
+                
+                dict1 = {}
+                dict2 = {}
+                dict1['CNAE_fiscal']= texto
+                dict2['Município'] = municipio.upper()
+                lista = []
+                
+                lista.append(dict1)
+                lista.append(dict2)
+                
+                texto = {}
+                texto['$and'] = lista
+                texto = situacao_cadastral(texto = texto,sit = sit_cad)
+                
+                result = documents.find(texto,{'_id':0})
+        
+                datas=[]
+                
+                for i in result:
+                    datas.append(i)
+                
+                return render_template('datatable.html', datas = datas)
+        
+    if request.method == 'GET':
+        return render_template('cnaeporsetor.html')
+
+@app.route('/cnaeporuf')
+def cnae_por_uf():
+    return render_template('cnaeporuf.html')
+
+@app.route('/cnaebusca', methods = ['GET', 'POST'])
+def cnaebusca():
+    if request.method == 'POST':
+        print('busca_atividade_economica')
+        texto = {}
+        cnae_busca = request.form['ativ_econom']
+        cnae_regex ={}
+        cnae_regex['$regex'] = cnae_busca
+        texto['CNAE_sig'] = cnae_regex
+        
+        db = connexion()
+        cnae_sig_col = db.cnae_legenda
+        
+        result = cnae_sig_col.find(texto,{'_id':0})
+        print(texto)
+        datas = []
+
+            
+        for i in result :
+            datas.append(i)
+
+        return render_template('ativ_economica.html', datas = datas)
+
+    if request.method == 'GET':
+
+        return render_template('cnaebusca.html')
 
 # @app.route('/graficos',methods=['GET', 'POST'])
 # def graficos():
@@ -322,71 +392,6 @@ def socios_nome():
 #         return render_template('resultadograficos.html', img = nome)
 #     if request.method == 'GET':
 #         return render_template('empresasativas.html')
-
-@app.route('/cnaeporsetor',methods = ['GET', 'POST'])
-def cnae_por_setor():
-    if request.method == 'POST':
-        cod_setor = request.form['cod_set']
-        municipio = request.form['municipio']
-        sit_cad = request.form['sit_cad']
-        
-        cnae_setor ={'A': "(^01\w*|^02\w*|^03\w*)" ,
-            'B': "(^05\w*|^06\w*|^07\w*|^08\w*|^09\w*)" , 
-            'C': "(^10\w*|^11\w*|^12\w*|^13\w*|^14\w*|^15\w*|^16\w*|^17\w*|^18\w*|^19\w*|^20\w*|^21\w*|^22\w*|^23\w*|^24\w*|^25\w*|^26\w*|^27\w*|^28\w*|^29\w*|^30\w*|^31\w*|^32\w*|^33\w*)" , 
-            'D': "(^35\w*)" , 
-            'E': "(^36\w*|^37\w*|^38\w*|^39\w*)",
-            'F': "(^41\w*|^42\w*|^43\w*)" , 
-            'G': "(^45\w*|^46\w*|^47\w*)",
-            'H': "(^49\w*|^50\w*|^51\w*|^52\w*|^53\w*)" , 
-            'I': "(^55\w*|^56\w*)" , 
-            'J': "(^58\w*|^59\w*|^60\w*|^61\w*|^62\w*|^63\w*)" , 
-            'K': "(^64\w*|^65\w*|^66\w*)" , 
-            'L': "(^68\w*)" , 
-            'M': "(^69\w*|^70\w*|^71\w*|^72\w*|^73\w*|^74\w*|^75\w*)" , 
-            'N': "(^77\w*|^78\w*|^79\w*|^80\w*|^81\w*|^82\w*)" , 
-            'O': "(^84\w*)" , 
-            'P': "(^85\w*)" , 
-            'Q': "(^86\w*|^87\w*|^88\w*)",
-            'R': "(^90\w*|^91\w*|^92\w*|^93\w*)" , 
-            'S': "(^94\w*|^95\w*|^96\w*)" , 
-            'T': "(^97\w*)" , 
-            'U': "(^99\w*)" } 
-
-        list_alf =['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U']
-        
-        for alf in list_alf:
-            if cnaeregex.upper() == alf:
-                situação_cadastral = self.root.ids.sitcadsetor.text                
-                
-                texto = {}
-                texto['$regex'] = cnae_setor[alf]
-                
-                dict1 = {}
-                dict2 = {}
-                dict1['CNAE_fiscal']= texto
-                dict2['Município'] = texto2.upper()
-                lista = []
-                
-                lista.append(dict1)
-                lista.append(dict2)
-                
-                texto = {}
-                texto['$and'] = lista
-                self.situacao_cadastral(texto = texto,sit = situação_cadastral)
-                
-                return texto
-        
-    if request.method == 'GET':
-        return render_template('cnaeporsetor.html')
-
-@app.route('/cnaeporuf')
-def cnae_por_uf():
-    return render_template('cnaeporuf.html')
-
-@app.route('/cnaebusca')
-def cnaebusca():
-    return render_template('cnaebusca.html')
-
 
 if __name__ == '__main__':
     app.run(debug=True)
