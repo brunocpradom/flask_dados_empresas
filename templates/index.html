@@ -3,68 +3,236 @@
 
 {%block content%}
 <style>
-
-  
-  
+  .mdc-button{
+    align-items:center!important;
+    justify-content:center!important;
+  }
 </style>
+<!--!---------------CNPJ------------------>
+<form method='post' class= 'container tab-content' id='cnpj'>
+  <div class="mb-3">  
+    <input type="text" class="form-control invbord"  
+    placeholder="Digite o CNPJ" name = 'cnpj'>
+  </div>
+  <button class="mdc-button" type ='post' value ='send'>
+    <i class="material-icons mdc-button__icon dark"  aria-hidden="true">search</i>
+  </button>
+</form>
 
+<!--!---------------CNAE------------------>
+
+              <!--específico-->
+<form method = 'post' class='container tab-content' id='cnae-especifico-form'>
+  <div class="mb-3">
+      <input type="text" class="form-control invbord" id="exampleFormControlInput1" placeholder="CNAE" name = 'cnae'>
+  </div>
+  <div class="mb-3">
+    <input type="text" class="form-control invbord" id="exampleFormControlInput1"   placeholder="Município" name = 'municipio'>
+  </div>
+  <select class="form-select invbord" aria-label="Default select example" name = sit_cad>
+    <option selected>Situação cadastral</option>
+    <option value="ativa">Ativa</option>
+    <option value="outros">Inativas</option>
+    <option value="todas">Todas</option>
+  </select>
+  <button class="mdc-button">
+    <i class="material-icons mdc-button__icon" aria-hidden="true">search</i>
+  </button>
+</form>
+
+              <!--por setor-->
+<form method = 'post' class='container tab-content' id = 'cnae-setor-form'>
+  <div class="mb-3">
+    <input type="text" class="form-control invbord" id="exampleFormControlInput1" placeholder="Município" name = 'municipio'>
+  </div>
+
+  <select class="form-select invbord" aria-label="Default select example" name=sit_cad >
+  <option selected>Situação cadastral</option>
+  <option value="ativa">Ativa</option>
+  <option value="outros">Inativas</option>
+  <option value="todas">Todas</option>
+  </select>
+  <select class="form-select invbord" aria-label="Default select example" name='cod_setor' >
+  <option selected>Código do setor</option>
+  <option value="A">AGRICULTURA, PECUÁRIA, PRODUÇÃO FLORESTAL, PESCA E AQÜICULTURA</option>
+  <option value="B">INDÚSTRIAS EXTRATIVAS</option>
+  <option value="C">INDÚSTRIAS DE TRANSFORMAÇÃO</option>
+  <option value="D">ELETRICIDADE E GÁS</option>
+  <option value="E">ÁGUA, ESGOTO, ATIVIDADES DE GESTÃO DE RESÍDUOS E DESCONTAMINAÇÃO</option>
+  <option value="F">CONSTRUÇÃO</option>
+  <option value="G">COMÉRCIO; REPARAÇÃO DE VEÍCULOS AUTOMOTORES E MOTOCICLETAS</option>
+  <option value="H">TRANSPORTE, ARMAZENAGEM E CORREIO</option>
+  <option value="I">ALOJAMENTO E ALIMENTAÇÃO</option>
+  <option value="J">INFORMAÇÃO E COMUNICAÇÃO</option>
+  <option value="K">ATIVIDADES FINANCEIRAS, DE SEGUROS E SERVIÇOS RELACIONADOS</option>
+  <option value="L">ATIVIDADES IMOBILIÁRIAS</option>
+  <option value="M">ATIVIDADES PROFISSIONAIS, CIENTÍFICAS E TÉCNICAS</option>
+  <option value="N">ATIVIDADES ADMINISTRATIVAS E SERVIÇOS COMPLEMENTARES</option>
+  <option value="O">ADMINISTRAÇÃO PÚBLICA, DEFESA E SEGURIDADE SOCIAL</option>
+  <option value="P">EDUCAÇÃO</option>
+  <option value="Q">SAÚDE HUMANA E SERVIÇOS SOCIAIS</option>
+  <option value="R">ARTES, CULTURA, ESPORTE E RECREAÇÃO</option>
+  <option value="S">OUTRAS ATIVIDADES DE SERVIÇOS</option>
+  <option value="T">SERVIÇOS DOMÉSTICOS</option>
+  <option value="U">ORGANISMOS INTERNACIONAIS E OUTRAS INSTITUIÇÕES EXTRATERRITORIAIS</option>
+  </select>
+
+  <button class="mdc-button">
+    <i class="material-icons mdc-button__icon" aria-hidden="true">search</i>
+  </button>
+</form>
+              <!--por uf-->
+<form method = 'POST' class='container tab-content' id='cnae-uf-form'>
+  <div class="mb-3">
+    <input type="text" class="form-control invbord" id="exampleFormControlInput1" placeholder="CNAE" name = 'cnae'>
+  </div>
+  <div class="mb-3">
   
+  <input type="text" class="form-control invbord" id="exampleFormControlInput1"   placeholder="Estado" name = 'estado'>
+  </div>
 
+  <select class="form-select invbord" aria-label="Default select example" name = sit_cad>
+  <option selected>Situação cadastral</option>
+  <option value="ativa">Ativa</option>
+  <option value="outros">Inativas</option>
+  <option value="todas">Todas</option>
+  </select>
+  <button class="mdc-button">
+  
+  <i class="material-icons mdc-button__icon" aria-hidden="true">search</i>
+  
+</button>
 
+</form>
 
+              <!--busca-->
+<form method = 'post' class='container tab-content' id='cnae-busca-form'>
+  <div class='container'>
+    <div class="mb-3">
+      <input type="text" class="form-control invbord" id="exampleFormControlInput1" placeholder="Atividade Econômica" name = 'ativ_econom'>
+    </div>
+    <button class="mdc-button">
+      <i class="material-icons mdc-button__icon" aria-hidden="true">search</i>
+    </button>
+  </div>
+</form>
+
+<!--!------------MUNICÍPIOS-------------->
+<form method='post' class='container tab-content' id='municipios'>
+  <div class="mb-3">
+    <input type="text" class="form-control invbord" id="exampleFormControlInput1" placeholder="Município" name = 'municipio'>
+  </div>   
+  <select class="form-select invbord" aria-label="Default select example" name = sit_cad>
+    <option selected>Situação cadastral</option>
+    <option value="ativa">Ativa</option>
+    <option value="outros">Inativas</option>
+    <option value="todas">Todas</option>
+  </select>
+  <button class="mdc-button">
+    <i class="material-icons mdc-button__icon" aria-hidden="true">search</i>
+  </button>
+</form>
+
+<!--!------------SÓCIOS------------------>
+
+              <!--cnpj-->
+<form method='POST' class='container tab-content' id='socios-cnpj-form'>
+  <div class="mb-3">
+    <input type="text" class="form-control invbord" id="exampleFormControlInput1" placeholder="Digite o CNPJ" name = 'cnpj'>
+  </div>
+  <button class="mdc-button">
+    <i class="material-icons mdc-button__icon" aria-hidden="true">search</i>
+  </button>
+</form>
+              <!--nome-->
+
+<form method='POST' class='container tab-content' id='socios-nome-form'>
+  <div class="mb-3">
+    <input type="text" class="form-control invbord" id="exampleFormControlInput1" placeholder="Nome do sócio" name = 'nome'>
+  </div>
+  <button class="mdc-button">
+  <i class="material-icons mdc-button__icon" aria-hidden="true">search</i>
+  </button>
+</form>
+
+<!--!----------GRAFICOS---------------->
+<!--empresas por setor-->
+<form method ='POST' class='container tab-content' id='graficos-empresas-por-setor'>
+  <div class='mb-3'>
+    <input type="text" class="form-control invbord" id="exampleFormControlInput1" 
+    placeholder="Município" name = 'municipio'>
+  </div>
+<button class="mdc-button">
+  <i class="material-icons mdc-button__icon" aria-hidden="true">search</i>
+</button>
+</form>
+
+<!--empresas ativas-->
+<form method ='POST' class='container tab-content' id='graficos-empresas-ativas'>  
+  <div class='mb-3'>
+      <input type="text" class="form-control invbord" id="exampleFormControlInput1" 
+      placeholder="Município" name = 'municipio'>
+  </div>
+
+  <div class='mb-3'>
+      <input type="text" class="form-control invbord" id="exampleFormControlInput1" 
+      placeholder="Setor" name = 'setor'>
+  </div>
+ <button class="mdc-button">
+  <i class="material-icons mdc-button__icon" aria-hidden="true">search</i>
+</button>
+</form>
 
 {%endblock%}
+
 {%block footer%}
 <footer>
+  <!--------------BASE SEM MENU----------->
   <div class="mdc-tab-bar" role="tablist">
     <div class="mdc-tab-scroller">
       <div class="mdc-tab-scroller__scroll-area">
         <div class="mdc-tab-scroller__scroll-content" >
   
-          <a href='' class="mdc-tab mdc-tab--active" role="tab" aria-selected="true" tabindex="0"  >
-  
+          <a href='#' class="mdc-tab base" role="tab" aria-selected="true" tabindex="0"  >
             <span class="mdc-tab__content" >
-              <span class="mdc-tab__icon material-icons" aria-hidden="true"></span>
               <span class="mdc-tab__text-label" ></span>
             </span>
+            <span class="mdc-tab-indicator ">
+              <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+            </span>
+
+            <span class="mdc-tab__ripple"></span>
+          </a>
   
-            <span class="mdc-tab-indicator mdc-tab-indicator--active">
-              <span class="mdc-tab-indicator__content "></span>
+          <a href ='#' class="mdc-tab base" role="tab" aria-selected="true" id = 'teste' tabindex="1"  >
+            <span class="mdc-tab__content">
               
-            </span>
-  
-            <span class="mdc-tab__ripple"></span>
-          </a>
-  
-          <a href ='#' class="mdc-tab " role="tab" aria-selected="true" id = 'teste' tabindex="1"  >
-            <span class="mdc-tab__content">
-              <span class="mdc-tab__icon material-icons" aria-hidden="true"></span>
               <span class="mdc-tab__text-label"></span>
             </span>
             <span class="mdc-tab-indicator ">
-              <span class="mdc-tab-indicator__content "></span>
+              <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
             </span>
             <span class="mdc-tab__ripple"></span>
           </a>
   
-          <a href='#' class="mdc-tab " role="tab" aria-selected="true" tabindex="2">
+          <a href='#' class="mdc-tab base" role="tab" aria-selected="true" tabindex="2">
             <span class="mdc-tab__content">
-              <span class="mdc-tab__icon material-icons" aria-hidden="true"></span>
+              
               <span class="mdc-tab__text-label"></span>
             </span>
             <span class="mdc-tab-indicator ">
-              <span class="mdc-tab-indicator__content "></span>
+              <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
             </span>
             <span class="mdc-tab__ripple"></span>
           </a>
   
-          <a href='#' class="mdc-tab " role="tab" aria-selected="true" tabindex="3">
+          <a href='#' class="mdc-tab base" role="tab" aria-selected="true" tabindex="3">
             <span class="mdc-tab__content">
-              <span class="mdc-tab__icon material-icons" aria-hidden="true"></span>
+              
               <span class="mdc-tab__text-label"></span>
             </span>
             <span class="mdc-tab-indicator ">
-              <span class="mdc-tab-indicator__content "></span>
+              <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
             </span>
             <span class="mdc-tab__ripple"></span>
           </a>
@@ -73,12 +241,151 @@
       </div>
     </div>
   </div>
+  <!--------CNAE----------->
+
+  <div class="mdc-tab-bar" role="tablist">
+    <div class="mdc-tab-scroller">
+      <div class="mdc-tab-scroller__scroll-area">
+        <div class="mdc-tab-scroller__scroll-content" >
+  
+          <a href='#' class="mdc-tab mdc-tab--active cnae" role="tab" 
+          aria-selected="true" tabindex="0"  id='cnae-especifico' onclick="changeCnae(event,'cnae-especifico-form')">
+  
+            <span class="mdc-tab__content" >
+              <span class="mdc-tab__icon material-icons" aria-hidden="true">fiber_manual_record</span>
+              <span class="mdc-tab__text-label" >ESPECÍFICO</span>
+            </span>
+  
+            <span class="mdc-tab-indicator mdc-tab-indicator--active">
+              <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+              
+            </span>
+  
+            <span class="mdc-tab__ripple"></span>
+          </a>
+  
+          <a href ='#' class="mdc-tab cnae" role="tab" aria-selected="true" 
+          id = 'cnae-por-setor' tabindex="1"  onclick = "changeCnae(event,'cnae-setor-form')">
+            <span class="mdc-tab__content">
+              <span class="mdc-tab__icon material-icons" aria-hidden="true">fiber_manual_record</span>
+              <span class="mdc-tab__text-label">POR SETOR</span>
+            </span>
+            <span class="mdc-tab-indicator ">
+              <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+            </span>
+            <span class="mdc-tab__ripple"></span>
+          </a>
+  
+          <a href='#' class="mdc-tab cnae" role="tab" aria-selected="true" tabindex="2"
+          id = 'cnae-por-uf' onclick="changeCnae(event,'cnae-uf-form')">
+            <span class="mdc-tab__content">
+              <span class="mdc-tab__icon material-icons" aria-hidden="true">fiber_manual_record</span>
+              <span class="mdc-tab__text-label">POR UF</span>
+            </span>
+            <span class="mdc-tab-indicator ">
+              <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+            </span>
+            <span class="mdc-tab__ripple"></span>
+          </a>
+  
+          <a href='#' class="mdc-tab cnae" role="tab" aria-selected="true" tabindex="3"
+          id='cnae-busca' onclick = "changeCnae(event,'cnae-busca-form')">
+            <span class="mdc-tab__content">
+              <span class="mdc-tab__icon material-icons" aria-hidden="true">fiber_manual_record</span>
+              <span class="mdc-tab__text-label">BUSCA</span>
+            </span>
+            <span class="mdc-tab-indicator ">
+              <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+            </span>
+            <span class="mdc-tab__ripple"></span>
+          </a>
+  
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-------SOCIOS--------->
+  <div class="mdc-tab-bar" role="tablist">
+    <div class="mdc-tab-scroller">
+      <div class="mdc-tab-scroller__scroll-area">
+        <div class="mdc-tab-scroller__scroll-content" >
+  
+          <a href='#' class="mdc-tab socios" role="tab" aria-selected="true" 
+          tabindex="0"  id="socios-cnpj" onclick="changeSocios(event,'socios-cnpj-form')">
+  
+            <span class="mdc-tab__content" >
+              <span class="mdc-tab__icon material-icons" aria-hidden="true">fiber_manual_record</span>
+              <span class="mdc-tab__text-label" >CNPJ</span>
+            </span>
+            <span class="mdc-tab-indicator mdc-tab-indicator--active">
+              <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+              
+            </span>
+  
+            <span class="mdc-tab__ripple"></span>
+          </a>
+  
+          <a href ='#' class="mdc-tab socios" role="tab" aria-selected="true" id = 'socios-nome'
+           tabindex="1"  onclick="changeSocios(event,'socios-nome-form')">
+            <span class="mdc-tab__content">
+              <span class="mdc-tab__icon material-icons" aria-hidden="true">fiber_manual_record</span>
+              <span class="mdc-tab__text-label">NOME</span>
+            </span>
+            <span class="mdc-tab-indicator ">
+              <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+            </span>
+            <span class="mdc-tab__ripple"></span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!--GRAFICOS-->
+<div class="mdc-tab-bar" role="tablist">
+  <div class="mdc-tab-scroller">
+    <div class="mdc-tab-scroller__scroll-area">
+      <div class="mdc-tab-scroller__scroll-content" >
+
+        <a href='#' class="mdc-tab grafico" role="tab" aria-selected="true" tabindex="0"  id ="graficos-setor" onclick="changeChart(event,'graficos-empresas-por-setor')">
+
+          <span class="mdc-tab__content" >
+            <span class="mdc-tab__icon material-icons" aria-hidden="true">fiber_manual_record</span>
+            <span class="mdc-tab__text-label" >EMPRESAS POR SETOR</span>
+          </span>
+          <span class="mdc-tab-indicator mdc-tab-indicator--active">
+            <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+            
+          </span>
+
+          <span class="mdc-tab__ripple"></span>
+        </a>
+
+        <a href ='#' class="mdc-tab grafico" role="tab" aria-selected="true" id = 'teste' tabindex="1"  id='graficos-ativas' onclick="changeChart(event,'graficos-empresas-ativas')">
+          <span class="mdc-tab__content">
+            <span class="mdc-tab__icon material-icons" aria-hidden="true">fiber_manual_record</span>
+            <span class="mdc-tab__text-label">EMPRESAS ATIVAS POR MUNICÍPIO</span>
+          </span>
+          <span class="mdc-tab-indicator ">
+            <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+          </span>
+          <span class="mdc-tab__ripple"></span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+<!----------MENU BASE-->
+
   <div class="mdc-tab-bar" role="tablist">
       <div class="mdc-tab-scroller">
         <div class="mdc-tab-scroller__scroll-area">
           <div class="mdc-tab-scroller__scroll-content" >
 
-            <a href='/cnpj' class="mdc-tab " role="tab" aria-selected="true" tabindex="0"  >
+<!--CNPJ-->
+
+            <a href='#' class="mdc-tab mdc-tab--active" role="tab" aria-selected="true" tabindex="0" onclick="changeTabContent(event,'cnpj')" >
 
               <span class="mdc-tab__content" >
                 <span class="mdc-tab__icon material-icons" aria-hidden="true">fiber_manual_record</span>
@@ -92,8 +399,8 @@
 
               <span class="mdc-tab__ripple"></span>
             </a>
-
-            <a href ='/cnae' class="mdc-tab " role="tab" aria-selected="true" id = 'teste' tabindex="1"  >
+<!--CNAE-->
+            <a href ='#' class="mdc-tab mdc-tab--active" role="tab" aria-selected="true" id = 'teste' tabindex="1"  onclick="changeTabContent(event,'cnae-especifico-form');showCnaeOptions()">
               <span class="mdc-tab__content">
                 <span class="mdc-tab__icon material-icons" aria-hidden="true">fiber_manual_record</span>
                 <span class="mdc-tab__text-label">CNAE</span>
@@ -103,8 +410,8 @@
               </span>
               <span class="mdc-tab__ripple"></span>
             </a>
-
-            <a href='/municipio' class="mdc-tab " role="tab" aria-selected="true" tabindex="2">
+<!--MUNICIPIO-->
+            <a href='#' class="mdc-tab mdc-tab--active" role="tab" aria-selected="true" tabindex="2" onclick="changeTabContent(event,'municipios')">
               <span class="mdc-tab__content">
                 <span class="mdc-tab__icon material-icons" aria-hidden="true">fiber_manual_record</span>
                 <span class="mdc-tab__text-label">MUNICIPIOS</span>
@@ -114,8 +421,8 @@
               </span>
               <span class="mdc-tab__ripple"></span>
             </a>
-
-            <a href='/socios' class="mdc-tab " role="tab" aria-selected="true" tabindex="3">
+<!--SOCIOS-->
+            <a href='#' class="mdc-tab mdc-tab--active" role="tab" aria-selected="true" tabindex="3" onclick="changeTabContent(event,'socios-cnpj-form');showSociosOptions()">
               <span class="mdc-tab__content">
                 <span class="mdc-tab__icon material-icons" aria-hidden="true">fiber_manual_record</span>
                 <span class="mdc-tab__text-label">SÓCIOS</span>
@@ -125,8 +432,8 @@
               </span>
               <span class="mdc-tab__ripple"></span>
             </a>
-
-            <!-- <a href = '/graficos' class="mdc-tab " role="tab" aria-selected="true" tabindex="4">
+<!--GRAFICOS-->
+            <a href = '#' class="mdc-tab mdc-tab--active" role="tab" aria-selected="true" tabindex="4" onclick="changeTabContent(event,'graficos-empresas-por-setor');showChartOptions()">
               <span class="mdc-tab__content">
                 <span class="mdc-tab__icon material-icons" aria-hidden="true">fiber_manual_record</span>
                 <span class="mdc-tab__text-label">GRÁFICOS</span>
@@ -135,11 +442,157 @@
                 <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
               </span>
               <span class="mdc-tab__ripple"></span>
-            </a> -->
+            </a>
 
           </div>
         </div>
       </div>
     </div>
+    <div>
+     
+    </div>
   </footer>
+
+  <script>
+    function changeTabContent(event,tab){
+      var base = document.getElementsByClassName('base')
+      for (i = 0; i < base.length; i++) {
+          base[i].style.display = "flex";
+      }
+
+      var socios = document.getElementsByClassName('socios')
+      for (i = 0; i < socios.length; i++) {
+          socios[i].style.display = "none";
+      }
+
+      var cnae = document.getElementsByClassName('cnae')
+      for (i = 0; i < cnae.length; i++) {
+          cnae[i].style.display = "none";
+      }
+
+      var graficos = document.getElementsByClassName('grafico')
+      for (i = 0; i < graficos.length; i++) {
+          graficos[i].style.display = "none";
+      }
+
+      var tabContent = document.getElementsByClassName('tab-content')
+      for (i = 0; i < tabContent.length; i++) {
+          tabContent[i].style.display = "none";
+      }
+
+      var tablinks = document.getElementsByClassName("mdc-tab");
+      for (i = 0; i < tablinks.length; i++) {
+          tablinks[i].className = tablinks[i].className.replace("mdc-tab--active", "");
+      }
+
+      document.getElementById(tab).style.display='block';
+      event.currentTarget.className += " mdc-tab--active"
+    }
+
+    function showCnaeOptions(){
+      var base = document.getElementsByClassName('base')
+      for (i = 0; i < base.length; i++) {
+          base[i].style.display = "none";
+      }
+
+      var cnae = document.getElementsByClassName('cnae')
+      for (i = 0; i < cnae.length; i++) {
+          cnae[i].style.display = "flex";
+      }
+
+      var cnaeEspecifico = document.getElementById('cnae-especifico')
+      console.log
+      cnaeEspecifico.className += " mdc-tab--active"
+    }
+
+    function changeCnae(event,tab){
+      
+      var cnae = document.getElementsByClassName('cnae')
+      for (i = 0; i < cnae.length; i++) {
+          cnae[i].className=cnae[i].className.replace("mdc-tab--active", "");
+      }
+      var tabContent = document.getElementsByClassName('tab-content')
+      for (i = 0; i < tabContent.length; i++) {
+          tabContent[i].style.display = "none";
+      }
+
+      document.getElementById(tab).style.display='block';
+      event.currentTarget.className += " mdc-tab--active"
+    }
+
+    function showSociosOptions(){
+      var base = document.getElementsByClassName('base')
+      for (i = 0; i < base.length; i++) {
+          base[i].style.display = "none";
+      }
+
+      var cnae = document.getElementsByClassName('cnae')
+      for (i = 0; i < cnae.length; i++) {
+          cnae[i].style.display = "none";
+      }
+
+      var socios = document.getElementsByClassName('socios')
+      for (i = 0; i < socios.length; i++) {
+          socios[i].style.display = "flex";
+      }
+
+      var sociosCNPJ = document.getElementById('socios-cnpj')
+      sociosCNPJ.className += " mdc-tab--active"
+    }
+
+    function changeSocios(event,tab){
+      
+      var cnae = document.getElementsByClassName('socios')
+      for (i = 0; i < cnae.length; i++) {
+          cnae[i].className=cnae[i].className.replace("mdc-tab--active", "");
+      }
+      var tabContent = document.getElementsByClassName('tab-content')
+      for (i = 0; i < tabContent.length; i++) {
+          tabContent[i].style.display = "none";
+      }
+
+      document.getElementById(tab).style.display='block';
+      event.currentTarget.className += " mdc-tab--active"
+    }
+
+    function showChartOptions(){
+      var base = document.getElementsByClassName('base')
+      for (i = 0; i < base.length; i++) {
+          base[i].style.display = "none";
+      }
+
+      var cnae = document.getElementsByClassName('cnae')
+      for (i = 0; i < cnae.length; i++) {
+          cnae[i].style.display = "none";
+      }
+
+      var socios = document.getElementsByClassName('socios')
+      for (i = 0; i < socios.length; i++) {
+          socios[i].style.display = "none";
+      }
+
+      var graficos = document.getElementsByClassName('grafico')
+      for (i = 0; i < graficos.length; i++) {
+          graficos[i].style.display = "flex";
+      }
+
+      var graficoSetor = document.getElementById('graficos-setor')
+      graficoSetor.className += " mdc-tab--active"
+    }
+
+    function changeChart(event,tab){
+      
+      var graficos = document.getElementsByClassName('grafico')
+      for (i = 0; i < graficos.length; i++) {
+          graficos[i].className=graficos[i].className.replace("mdc-tab--active", "");
+      }
+      var tabContent = document.getElementsByClassName('tab-content')
+      for (i = 0; i < tabContent.length; i++) {
+          tabContent[i].style.display = "none";
+      }
+
+      document.getElementById(tab).style.display='block';
+      event.currentTarget.className += " mdc-tab--active"
+    }
+</script>
 {%endblock%}

@@ -15,10 +15,7 @@
     <!-- Required Material Web JavaScript library -->
     <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
     <!-- Instantiate single textfield component rendered in the document -->
-    <script>
-      mdc.textField.MDCTextField.attachTo(document.querySelector('.mdc-text-field'));
-    </script>   
-    <script src = '/static/javascript.js'></script>
+
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
     <!--CDN pro bootstrap-->
@@ -39,12 +36,7 @@
  </div>
 </div>  
 
- <script>
-   import {MDCTabBar} from '@material/tab-bar';
-  const MDCFoo = mdc.foo.MDCFoo;
-  const MDCFooFoundation = mdc.foo.MDCFooFoundation;
-  const tabBar = new MDCTabBar(document.querySelector('.mdc-tab-bar'));
-</script>
+
 
  {% block content%}
       {%endblock%}
@@ -53,6 +45,4 @@
 </body>
 {%block footer%}
 {%endblock%}
-
-
 </html>

@@ -1,6 +1,7 @@
 .mdc-button__icon{
     color:black;
-    transform : scale(1.5)
+    transform : scale(1.5);
+    text-align: center
   }
   .invbord{
     color : gray;
@@ -45,6 +46,18 @@
     min-height:100vh
   }
 
+  .tab-content{
+    display:none;
+  }
+  .cnae{
+    display:none;
+  }
+  .socios{
+    display:none;
+  }
+  .grafico{
+    display:none
+  }
 
   @media only screen and (max-width: 767px) {
     .mdc-tab__text-label{
