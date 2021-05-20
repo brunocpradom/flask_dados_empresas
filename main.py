@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, render_template,flash, request,redirect , url_for
+from flask import Flask, render_template,flash, request,redirect , url_for, jsonify
 
 from database import connexion
 from helpers import (situacao_cadastral, find_emp, find_soc,find_cnpj_attached_to_socios,
@@ -8,6 +8,8 @@ from helpers import (situacao_cadastral, find_emp, find_soc,find_cnpj_attached_t
 
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY")
+app.config['JSON_AS_ASCII'] = False
+app.config['JSON_SORT_KEYS'] = False
 
 @app.route('/')
 def home():
@@ -17,10 +19,13 @@ def home():
 def cnpj():
     if request.method =='POST':
         texto ={}
-        texto['CNPJ'] = str(request.form['cnpj'])
+        cnpj = request.json.get('cnpj','')
+        print(cnpj)
+        texto['CNPJ'] = request.json.get('cnpj')
 
         datas = find_emp(texto)
-        return render_template('datatable.html', datas = datas)
+        print(datas)
+        return jsonify(datas)
     
     if request.method =='GET':
         return render_template('cnpj.html')
@@ -43,12 +48,12 @@ def cnae():
 def municipio():
     if request.method =='POST':
         texto = {}
-        texto['Município'] = request.form['municipio'].upper()
-        texto = situacao_cadastral(texto,request.form['sit_cad'])
+        texto['Município'] = request.json['municipio'].upper()
+        texto = situacao_cadastral(texto,request.json['situacao_cadastral'])
         
         datas = find_emp(texto)
     
-        return render_template('datatable.html', datas = datas)
+        return jsonify(datas)
 
     if request.method == 'GET':
         return render_template('municipio.html')

@@ -2,21 +2,16 @@
 {%block title%}Busca_CNPJ{% endblock%}
 
 {%block content%}
-<style>
-  .mdc-button{
-    align-items:center!important;
-    justify-content:center!important;
-  }
-</style>
+
 <!--!---------------CNPJ------------------>
-<form method='post' class= 'container tab-content' id='cnpj'>
+<form method='post' class= 'container tab-content' id = 'cnpj'>
   <div class="mb-3">  
     <input type="text" class="form-control invbord"  
-    placeholder="Digite o CNPJ" name = 'cnpj'>
+    placeholder="Digite o CNPJ" name = 'cnpj' id='cnpj-input'>
   </div>
-  <button class="mdc-button" type ='post' value ='send'>
+  <a class="mdc-button"  onclick='searchCnpj();'>
     <i class="material-icons mdc-button__icon dark"  aria-hidden="true">search</i>
-  </button>
+  </a>
 </form>
 
 <!--!---------------CNAE------------------>
@@ -35,9 +30,9 @@
     <option value="outros">Inativas</option>
     <option value="todas">Todas</option>
   </select>
-  <button class="mdc-button">
+  <a class="mdc-button" onclick="showResults()">
     <i class="material-icons mdc-button__icon" aria-hidden="true">search</i>
-  </button>
+  </a>
 </form>
 
               <!--por setor-->
@@ -77,9 +72,9 @@
   <option value="U">ORGANISMOS INTERNACIONAIS E OUTRAS INSTITUIÇÕES EXTRATERRITORIAIS</option>
   </select>
 
-  <button class="mdc-button">
+  <a class="mdc-button" onclick='showResults()'>
     <i class="material-icons mdc-button__icon" aria-hidden="true">search</i>
-  </button>
+  </a>
 </form>
               <!--por uf-->
 <form method = 'POST' class='container tab-content' id='cnae-uf-form'>
@@ -97,11 +92,9 @@
   <option value="outros">Inativas</option>
   <option value="todas">Todas</option>
   </select>
-  <button class="mdc-button">
-  
+  <a class="mdc-button" onclick='showResults()'>
   <i class="material-icons mdc-button__icon" aria-hidden="true">search</i>
-  
-</button>
+  </a>
 
 </form>
 
@@ -120,17 +113,17 @@
 <!--!------------MUNICÍPIOS-------------->
 <form method='post' class='container tab-content' id='municipios'>
   <div class="mb-3">
-    <input type="text" class="form-control invbord" id="exampleFormControlInput1" placeholder="Município" name = 'municipio'>
+    <input type="text" class="form-control invbord" id="municipio-input" placeholder="Município" name = 'municipio'>
   </div>   
-  <select class="form-select invbord" aria-label="Default select example" name = sit_cad>
+  <select class="form-select invbord" id='municipio-sit_cad' name = sit_cad>
     <option selected>Situação cadastral</option>
     <option value="ativa">Ativa</option>
     <option value="outros">Inativas</option>
     <option value="todas">Todas</option>
   </select>
-  <button class="mdc-button">
+  <a class="mdc-button" onclick = 'searchMunicipio()'>
     <i class="material-icons mdc-button__icon" aria-hidden="true">search</i>
-  </button>
+  </a>
 </form>
 
 <!--!------------SÓCIOS------------------>
@@ -182,6 +175,67 @@
   <i class="material-icons mdc-button__icon" aria-hidden="true">search</i>
 </button>
 </form>
+
+<!--!---------DATATABLE EMPRESAS------------->
+
+<div id='datatable' class = 'tab-content' >
+  <div class = 'table-responsive'>
+    <table class="table">
+        <thead class= 'table'>
+          <tr>
+            <th scope="col"></th>
+            <th scope="col">CNPJ</th>
+            <th scope="col">ID</th>
+            <th scope="col">Nome empresarial</th>
+            <th scope="col">Nome fantasia</th>
+            <th scope="col">Situação cadastral</th>
+            <th scope="col">Data situação cadastral</th>
+            <th scope="col">Motivo cadastral</th>
+            <th scope="col">Código natureza jurídica</th>
+            <th scope="col">Data início ativ.</th>
+            <th scope="col">CNAE fiscal</th>
+            <th scope="col">Tipo de logradouro</th>
+            <th scope="col">Logradouro</th>
+            <th scope="col">Número</th>
+            <th scope="col">Complemento</th>
+            <th scope="col">Bairro</th>
+            <th scope="col">CEP</th>
+            <th scope="col">UF</th>
+            <th scope="col">Cod_município</th>
+            <th scope="col">Município</th>
+            <th scope="col">DDD</th>
+            <th scope="col">Telefone</th>
+            <th scope="col">DDD</th>
+            <th scope="col">Telefone</th>
+            <th scope="col">DDD</th>
+            <th scope="col">Fax</th>
+            <th scope="col">E-mail</th>
+            <th scope="col">Qualiff. do responsável</th>
+            <th scope="col">Capital social</th>
+            <th scope="col">Porte</th>
+            <th scope="col">Opção pelo simples</th>
+            <th scope="col">Data opção pelo simples</th>
+            <th scope="col">Data exclusão do simples</th>
+            <th scope="col">Opção pelo MEI</th>
+            <th scope="col">Situação especial</th>
+            <th scope="col">Data da situação especial</th>
+          
+          </tr>
+        </thead>          
+          <tbody id='datatable-results'>
+              {%for data in datas%}
+            <tr>
+              <th scope="row"></th>
+              {%for file in data%}
+              <td>{{data[file]}}</td>
+              {%endfor%}
+            </tr>
+          {%endfor%}
+        </tbody>
+      </table>
+  </div>
+</div>
+
 
 {%endblock%}
 
@@ -454,145 +508,50 @@
   </footer>
 
   <script>
-    function changeTabContent(event,tab){
-      var base = document.getElementsByClassName('base')
-      for (i = 0; i < base.length; i++) {
-          base[i].style.display = "flex";
+
+    function searchCnpj(){
+      var cnpj = document.getElementById('cnpj-input').value
+      request = new XMLHttpRequest();
+
+      request.open('POST', "{{url_for('cnpj')}}");
+      request.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+      request.onload = function() {
+          if (request.status === 200){
+            createDataTable()
+            showResults()
+          }
+          else if (request.status !== 200) {
+              console.log(request.status)
+          }
+      };
+      var data = JSON.stringify({"cnpj": cnpj });
+      console.log(data)
+      request.send(data);
       }
 
-      var socios = document.getElementsByClassName('socios')
-      for (i = 0; i < socios.length; i++) {
-          socios[i].style.display = "none";
+      function searchMunicipio(){
+      var municipio = document.getElementById('municipio-input').value
+      var situacao_cadastral = document.getElementById('municipio-sit_cad').value
+      request = new XMLHttpRequest();
+
+      request.open('POST', "{{url_for('municipio')}}");
+      request.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+      request.onload = function() {
+          if (request.status === 200){
+            createDataTable()
+            showResults()
+          }
+          else if (request.status !== 200) {
+              console.log(request.status)
+          }
+      };
+      var data = JSON.stringify({
+        "municipio": municipio,
+        "situacao_cadastral": situacao_cadastral 
+      });
+      console.log(data)
+      request.send(data);
       }
 
-      var cnae = document.getElementsByClassName('cnae')
-      for (i = 0; i < cnae.length; i++) {
-          cnae[i].style.display = "none";
-      }
-
-      var graficos = document.getElementsByClassName('grafico')
-      for (i = 0; i < graficos.length; i++) {
-          graficos[i].style.display = "none";
-      }
-
-      var tabContent = document.getElementsByClassName('tab-content')
-      for (i = 0; i < tabContent.length; i++) {
-          tabContent[i].style.display = "none";
-      }
-
-      var tablinks = document.getElementsByClassName("mdc-tab");
-      for (i = 0; i < tablinks.length; i++) {
-          tablinks[i].className = tablinks[i].className.replace("mdc-tab--active", "");
-      }
-
-      document.getElementById(tab).style.display='block';
-      event.currentTarget.className += " mdc-tab--active"
-    }
-
-    function showCnaeOptions(){
-      var base = document.getElementsByClassName('base')
-      for (i = 0; i < base.length; i++) {
-          base[i].style.display = "none";
-      }
-
-      var cnae = document.getElementsByClassName('cnae')
-      for (i = 0; i < cnae.length; i++) {
-          cnae[i].style.display = "flex";
-      }
-
-      var cnaeEspecifico = document.getElementById('cnae-especifico')
-      console.log
-      cnaeEspecifico.className += " mdc-tab--active"
-    }
-
-    function changeCnae(event,tab){
-      
-      var cnae = document.getElementsByClassName('cnae')
-      for (i = 0; i < cnae.length; i++) {
-          cnae[i].className=cnae[i].className.replace("mdc-tab--active", "");
-      }
-      var tabContent = document.getElementsByClassName('tab-content')
-      for (i = 0; i < tabContent.length; i++) {
-          tabContent[i].style.display = "none";
-      }
-
-      document.getElementById(tab).style.display='block';
-      event.currentTarget.className += " mdc-tab--active"
-    }
-
-    function showSociosOptions(){
-      var base = document.getElementsByClassName('base')
-      for (i = 0; i < base.length; i++) {
-          base[i].style.display = "none";
-      }
-
-      var cnae = document.getElementsByClassName('cnae')
-      for (i = 0; i < cnae.length; i++) {
-          cnae[i].style.display = "none";
-      }
-
-      var socios = document.getElementsByClassName('socios')
-      for (i = 0; i < socios.length; i++) {
-          socios[i].style.display = "flex";
-      }
-
-      var sociosCNPJ = document.getElementById('socios-cnpj')
-      sociosCNPJ.className += " mdc-tab--active"
-    }
-
-    function changeSocios(event,tab){
-      
-      var cnae = document.getElementsByClassName('socios')
-      for (i = 0; i < cnae.length; i++) {
-          cnae[i].className=cnae[i].className.replace("mdc-tab--active", "");
-      }
-      var tabContent = document.getElementsByClassName('tab-content')
-      for (i = 0; i < tabContent.length; i++) {
-          tabContent[i].style.display = "none";
-      }
-
-      document.getElementById(tab).style.display='block';
-      event.currentTarget.className += " mdc-tab--active"
-    }
-
-    function showChartOptions(){
-      var base = document.getElementsByClassName('base')
-      for (i = 0; i < base.length; i++) {
-          base[i].style.display = "none";
-      }
-
-      var cnae = document.getElementsByClassName('cnae')
-      for (i = 0; i < cnae.length; i++) {
-          cnae[i].style.display = "none";
-      }
-
-      var socios = document.getElementsByClassName('socios')
-      for (i = 0; i < socios.length; i++) {
-          socios[i].style.display = "none";
-      }
-
-      var graficos = document.getElementsByClassName('grafico')
-      for (i = 0; i < graficos.length; i++) {
-          graficos[i].style.display = "flex";
-      }
-
-      var graficoSetor = document.getElementById('graficos-setor')
-      graficoSetor.className += " mdc-tab--active"
-    }
-
-    function changeChart(event,tab){
-      
-      var graficos = document.getElementsByClassName('grafico')
-      for (i = 0; i < graficos.length; i++) {
-          graficos[i].className=graficos[i].className.replace("mdc-tab--active", "");
-      }
-      var tabContent = document.getElementsByClassName('tab-content')
-      for (i = 0; i < tabContent.length; i++) {
-          tabContent[i].style.display = "none";
-      }
-
-      document.getElementById(tab).style.display='block';
-      event.currentTarget.className += " mdc-tab--active"
-    }
-</script>
+    </script>
 {%endblock%}
