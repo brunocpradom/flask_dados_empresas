@@ -244,3 +244,55 @@ function buildChart(municipio,lista){
 }
 
 
+function ajaxRequisitionCnpj(data_dict,url_for){
+  request = new XMLHttpRequest();
+
+  request.open('POST', url_for);
+  request.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+  request.onload = function() {
+      if (request.status === 200){
+        createDataTable()
+        showResults()
+      }
+      else if (request.status !== 200) {
+          console.log(request.status)
+      }
+  };
+  request.send(data_dict);
+
+}
+
+function ajaxRequisitionSocios(data_dict,url_for){
+  request = new XMLHttpRequest();
+
+request.open('POST', url_for);
+request.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+request.onload = function() {
+    if (request.status === 200){
+      createDataTableSocios()
+      showSocioResults()
+    }
+    else if (request.status !== 200) {
+        console.log(request.status)
+    }
+};
+request.send(data_dict);
+
+}
+
+function ajaxRequisitionAtivEcon(data_dict,url_for){
+  request = new XMLHttpRequest();
+
+  request.open('POST', url_for);
+  request.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+  request.onload = function() {
+      if (request.status === 200){
+        createDataTableAtivEcon()
+        showAtivEconResults()
+      }
+      else if (request.status !== 200) {
+          console.log(request.status)
+      }
+  };
+  request.send(data_dict);
+}

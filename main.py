@@ -67,7 +67,7 @@ def search_cnae_meaning():
 
     texto = {}
     cnae_regex ={}
-    cnae_regex['$regex'] = request.json['ativ_econ']
+    cnae_regex['$regex'] = request.json['atividade_economica']
     texto['CNAE_sig'] = cnae_regex
     
     datas = find_cnae(texto)

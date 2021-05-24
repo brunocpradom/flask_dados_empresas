@@ -570,228 +570,94 @@
   <script>
 
     function searchCnpj(){
-      var cnpj = document.getElementById('cnpj-input').value
-      request = new XMLHttpRequest();
-
-      request.open('POST', "{{url_for('cnpj')}}");
-      request.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-      request.onload = function() {
-          if (request.status === 200){
-            createDataTable()
-            showResults()
-          }
-          else if (request.status !== 200) {
-              console.log(request.status)
-          }
-      };
-      var data = JSON.stringify({"cnpj": cnpj });
-      
-      request.send(data);
+      var data_dict = JSON.stringify({
+        "cnpj":document.getElementById('cnpj-input').value
+      })
+      ajaxRequisitionCnpj(data_dict, "{{url_for('cnpj')}}")
       }
 
     function searchCnaeEspecifico(){
-      var cnae = document.getElementById('cnae-especifico-form').value
-      var municipio = document.getElementById('municipio-cnae-especifico').value
-      var situacao_cadastral=document.getElementById('sit_cad-cnae-especifico').value
-
-      request = new XMLHttpRequest();
-
-      request.open('POST', "{{url_for('cnae')}}");
-      request.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-      request.onload = function() {
-          if (request.status === 200){
-            createDataTable()
-            showResults()
-          }
-          else if (request.status !== 200) {
-              console.log(request.status)
-          }
-      };
-      var data = JSON.stringify({
-        "cnae": cnae,
-        "municipio":municipio,
-        "situacao_cadastral":situacao_cadastral 
-      });
-      
-      request.send(data);
+      var data_dict = JSON.stringify({
+        "cnae":document.getElementById('cnae-especifico-form').value,
+        "municipio" :document.getElementById('municipio-cnae-especifico').value,
+        'situacao_cadastral': document.getElementById('sit_cad-cnae-especifico').value
+      })
+      ajaxRequisitionCnpj(data_dict, "{{url_for('cnae')}}")
     }
-
+    
     function searchCnaeSetor(){
-      
-      var municipio = document.getElementById('municipio-cnae-setor').value
-      var situacao_cadastral=document.getElementById('situacao-cadastral_cnae-setor').value
-      var codigo_setor = document.getElementById('codigo-setor-cnae').value
-
-      request = new XMLHttpRequest();
-
-      request.open('POST', "{{url_for('cnae_por_setor')}}");
-      request.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-      request.onload = function() {
-          if (request.status === 200){
-            createDataTable()
-            showResults()
-          }
-          else if (request.status !== 200) {
-              console.log(request.status)
-          }
-      };
-      var data = JSON.stringify({
-        "municipio":municipio,
-        "situacao_cadastral":situacao_cadastral ,
-        "codigo_setor" : codigo_setor
-      });
-      
-      request.send(data);
+      var data_dict = JSON.stringify({
+        "municipio":document.getElementById('municipio-cnae-setor').value,
+        "situacao_cadastral" :document.getElementById('situacao-cadastral_cnae-setor').value,
+        'codigo_setor': document.getElementById('codigo-setor-cnae').value
+      })
+      ajaxRequisitionCnpj(data_dict, "{{url_for('cnae_por_setor')}}")
     }
 
     function searchCnaeUF(){
-      
-      var cnae = document.getElementById('cnae-by-uf-form').value
-      var situacao_cadastral=document.getElementById('situacao_cadastral-cnae_uf').value
-      var uf = document.getElementById('uf-cnae-form').value
-
-      request = new XMLHttpRequest();
-
-      request.open('POST', "{{url_for('cnae_por_uf')}}");
-      request.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-      request.onload = function() {
-          if (request.status === 200){
-            createDataTable()
-            showResults()
-          }
-          else if (request.status !== 200) {
-              console.log(request.status)
-          }
-      };
-      var data = JSON.stringify({        
-        "situacao_cadastral":situacao_cadastral,
-        "cnae":cnae,
-        "uf" : uf
-      });
-      request.send(data);
+      var data_dict = JSON.stringify({
+        "cnae":document.getElementById('cnae-by-uf-form').value,
+        "situacao_cadastral" :document.getElementById('situacao_cadastral-cnae_uf').value,
+        'uf': document.getElementById('uf-cnae-form').value
+      })
+      ajaxRequisitionCnpj(data_dict, "{{url_for('cnae_por_uf')}}")
     }
 
     function searchMunicipio(){
-      var municipio = document.getElementById('municipio-input').value
-      var situacao_cadastral = document.getElementById('municipio-sit_cad').value
-      request = new XMLHttpRequest();
-
-      request.open('POST', "{{url_for('municipio')}}");
-      request.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-      request.onload = function() {
-          if (request.status === 200){
-            createDataTable()
-            showResults()
-          }
-          else if (request.status !== 200) {
-              console.log(request.status)
-          }
-      };
-      var data = JSON.stringify({
-        "municipio": municipio,
-        "situacao_cadastral": situacao_cadastral 
-      });
-      console.log(data)
-      request.send(data);
+        var data_dict = JSON.stringify({
+          "municipio":document.getElementById('municipio-input').value,
+          "situacao_cadastral" :document.getElementById('municipio-sit_cad').value
+        })
+        ajaxRequisitionCnpj(data_dict, "{{url_for('municipio')}}")
       }
 
-      function searchSociosCnpj(){
-      var cnpj = document.getElementById('socios-cnpj-input').value
-      
-      request = new XMLHttpRequest();
+    function searchSociosCnpj(){
+        var data_dict = JSON.stringify({
+          "cnpj":document.getElementById('socios-cnpj-input').value
+        })
+        ajaxRequisitionSocios(data_dict, "{{url_for('socios_attach_to_cnpj')}}")
+    }
 
-      request.open('POST', "{{url_for('socios_attach_to_cnpj')}}");
-      request.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-      request.onload = function() {
-          if (request.status === 200){
-            createDataTableSocios()
-            showSociosResults()
-          }
-          else if (request.status !== 200) {
-              console.log(request.status)
-          }
-      };
-      var data = JSON.stringify({
-        "cnpj": cnpj,
+    function searchSociosNome(){
+        var data_dict = JSON.stringify({
+          "nome":document.getElementById('socios-cnpj-nome').value
+        })
+        ajaxRequisitionCnpj(data_dict, "{{url_for('socios_nome')}}")
+    }
+
+
+    function searchAtivEcon(){      
+    var data_dict = JSON.stringify({
+        "atividade_economica":document.getElementById('ativ_economica').value
+      })
+      ajaxRequisitionAtivEcon(data_dict, "{{url_for('search_cnae_meaning')}}")
+    }
+    
+
+  function renderPieChart(){
+    var municipio = document.getElementById('municipio-grafico-pie').value
+    
+    request = new XMLHttpRequest();
+
+    request.open('POST', "{{url_for('graficos')}}");
+    request.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+    request.onload = function() {
+        if (request.status === 200){
+          console.log(request.responseText)
+          var lista = JSON.parse(request.responseText)['lista']
+          console.log(lista)
+          buildChart(municipio,lista)
+
+        }
         
-      });
-      console.log(data)
-      request.send(data);
-      }
-
-      function searchSociosNome(){
-      var nome = document.getElementById('socios-cnpj-nome').value
-      
-      request = new XMLHttpRequest();
-
-      request.open('POST', "{{url_for('socios_nome')}}");
-      request.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-      request.onload = function() {
-          if (request.status === 200){
-            createDataTable()
-            showResults()
-          }
-          else if (request.status !== 200) {
-              console.log(request.status)
-          }
-      };
-      var data = JSON.stringify({
-        "nome": nome,
-        
-      });
-      console.log(data)
-      request.send(data);
-      }
-
-
-      function searchAtivEcon(){
-      var atividade_economica = document.getElementById('ativ_economica').value
-      
-      request = new XMLHttpRequest();
-
-      request.open('POST', "{{url_for('search_cnae_meaning')}}");
-      request.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-      request.onload = function() {
-          if (request.status === 200){
-            createDataTableAtivEcon()
-            showAtivEconResults()
-          }
-          else if (request.status !== 200) {
-              console.log(request.status)
-          }
-      };
-      var data = JSON.stringify({
-        "ativ_econ": atividade_economica,
-        
-      });
-      console.log(data)
-      request.send(data);
-      }
-      
-    function renderPieChart(){
-      var municipio = document.getElementById('municipio-grafico-pie').value
-      
-      request = new XMLHttpRequest();
-
-      request.open('POST', "{{url_for('graficos')}}");
-      request.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-      request.onload = function() {
-          if (request.status === 200){
-            console.log(request.responseText)
-            var lista = JSON.parse(request.responseText)['lista']
-            console.log(lista)
-            buildChart(municipio,lista)
-
-          }
-          
-          else if (request.status !== 200) {
-              console.log(request.status)
-          }
-      };
-      var data = JSON.stringify({
-        "municipio": municipio,
-      });
-      request.send(data);
+        else if (request.status !== 200) {
+            console.log(request.status)
+        }
+    };
+    var data = JSON.stringify({
+      "municipio": municipio,
+    });
+    request.send(data);
       }
 
   </script>
