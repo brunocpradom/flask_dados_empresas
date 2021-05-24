@@ -23,11 +23,11 @@ def home():
 def cnpj():
     texto ={}
     cnpj = request.json.get('cnpj','')
-    print(cnpj)
+    
     texto['CNPJ'] = request.json.get('cnpj')
 
     datas = find_emp(texto)
-    print(datas)
+    
     return jsonify(datas)
 
 @app.route('/cnae',methods = ['POST'])
@@ -54,7 +54,6 @@ def cnae_por_setor():
     
 @app.route('/cnaeporuf', methods = ['POST'])
 def cnae_por_uf():
-    print(request.json)
     texto = {}
     texto['CNAE_fiscal'] = request.json['cnae'] 
     texto['UF'] = request.json['uf'].upper()
@@ -72,7 +71,7 @@ def search_cnae_meaning():
     texto['CNAE_sig'] = cnae_regex
     
     datas = find_cnae(texto)
-    print(datas)
+    
     return jsonify(datas)
 
 @app.route('/municipio',methods =['POST'])
@@ -94,7 +93,7 @@ def socios_attach_to_cnpj():
     texto['cnpj'] = cnpj.strip()
     
     datas = find_soc(texto)
-    print(datas)
+    
     return jsonify(datas)
     
 
@@ -120,7 +119,7 @@ def graficos():
         texto['Município'] = cidade.upper()
         
         data = render_pie_chart(texto)
-        print(data)
+        
                 
         return jsonify({'lista':data})
         
@@ -148,7 +147,7 @@ def graficos():
 #             parametros.append(list(result)[0][setor.upper()])
 #             parametros.append(i)
 #             valores_para_grafico.append(parametros)
-#             print('primeira pesquisa')
+#             
             
 #         datas =[]
 #         qtd_empresas = []
@@ -162,7 +161,7 @@ def graficos():
 #         texto2['Município'] = cidade.upper()
 #         result2 = doc2.find(texto2,{'_id':0, setor.upper():1,'data':1})
 #         lista2 = list(result2)
-#         print('segunda pesquisa')
+#         
         
 #         qtd_empresas.append(lista2[0][setor.upper()])
 #         datas.append(lista2[0]['data'])

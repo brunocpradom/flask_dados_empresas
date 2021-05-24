@@ -36,7 +36,7 @@ def find_emp(texto):
     return datas
 
 def find_cnae(texto):
-    print(texto)
+    
     db = connexion()
     documents = db.cnae_legenda
     result = documents.find(texto,{'_id':0})
