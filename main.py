@@ -1,196 +1,129 @@
 import os
 
-from flask import Flask, render_template,flash, request,redirect , url_for, jsonify
+from flask import Flask, render_template, request, jsonify
+from helpers import (
+    situacao_cadastral, find_emp, find_soc,find_cnpj_attached_to_socios,
+    cnae_setor, find_cnae, render_pie_chart
+                    )
 
-from database import connexion
-from helpers import (situacao_cadastral, find_emp, find_soc,find_cnpj_attached_to_socios,
-                    cnae_setor, find_cnae)
+def create_app():
+    app = Flask(__name__)
+    app.secret_key = os.environ.get("SECRET_KEY")
+    app.config['JSON_AS_ASCII'] = False
+    app.config['JSON_SORT_KEYS'] = False
+    return app
 
-app = Flask(__name__)
-app.secret_key = os.environ.get("SECRET_KEY")
-app.config['JSON_AS_ASCII'] = False
-app.config['JSON_SORT_KEYS'] = False
+app = create_app()
 
 @app.route('/')
 def home():
     return render_template('index.html')
 
-@app.route('/cnpj',methods= ['GET', 'POST'])
+@app.route('/cnpj',methods= [ 'POST'])
 def cnpj():
-    if request.method =='POST':
-        texto ={}
-        cnpj = request.json.get('cnpj','')
-        print(cnpj)
-        texto['CNPJ'] = request.json.get('cnpj')
+    texto ={}
+    cnpj = request.json.get('cnpj','')
+    print(cnpj)
+    texto['CNPJ'] = request.json.get('cnpj')
 
-        datas = find_emp(texto)
-        print(datas)
-        return jsonify(datas)
-    
-    if request.method =='GET':
-        return render_template('cnpj.html')
+    datas = find_emp(texto)
+    print(datas)
+    return jsonify(datas)
 
-@app.route('/cnae',methods = ['GET', 'POST'])
+@app.route('/cnae',methods = ['POST'])
 def cnae():
-    if request.method =='POST':
-        texto = {}
-        texto['CNAE_fiscal'] = request.form['cnae']
-        texto['Município'] = request.form['municipio'].upper()
-        texto = situacao_cadastral(texto,request.form['sit_cad'])
+    texto = {}
+    texto['CNAE_fiscal'] = request.json['cnae']
+    texto['Município'] = request.json['municipio'].upper()
+    texto = situacao_cadastral(texto,request.json['situacao_cadastral'])
         
-        datas = find_emp(texto)
-            
-        return render_template('datatable.html', datas = datas)
-    if request.method == 'GET':
-        return render_template('cnae.html')
+    datas = find_emp(texto)
+    return jsonify(datas)
 
-@app.route('/municipio',methods =['GET','POST'])
-def municipio():
-    if request.method =='POST':
-        texto = {}
-        texto['Município'] = request.json['municipio'].upper()
-        texto = situacao_cadastral(texto,request.json['situacao_cadastral'])
-        
-        datas = find_emp(texto)
-    
-        return jsonify(datas)
 
-    if request.method == 'GET':
-        return render_template('municipio.html')
-
-@app.route('/socios', methods = ['GET', 'POST'])
-def socios_attach_to_cnpj():
-    if request.method =='POST':
-        cnpj = request.form['cnpj']
-        texto = {}
-        texto['cnpj'] = cnpj.strip()
-        
-        datas = find_soc(texto)
-        
-        return render_template('datatablesocios.html', datas = datas)
-
-    if request.method == 'GET':
-        return render_template('socios.html')
-
-@app.route('/socios/nome',methods =['GET', 'POST'])
-def socios_nome():
-    if request.method == 'POST':
-        nome_socio = request.form['nome']
-        texto = {}
-        texto['nome_socio'] = nome_socio.upper()
-        datas = find_cnpj_attached_to_socios(texto)
-
-        return render_template('datatable.html', datas = datas)
-    
-    if request.method == 'GET':
-        return render_template('sociosnome.html')
-
-@app.route('/cnaeporsetor',methods = ['GET', 'POST'])
+@app.route('/cnaeporsetor',methods = [ 'POST'])
 def cnae_por_setor():
-    if request.method == 'POST':
-        cod_setor = request.form['cod_setor']
-        municipio = request.form['municipio']
-        sit_cad = request.form['sit_cad']
+    cod_setor = request.json['codigo_setor']
+    municipio = request.json['municipio']
+    sit_cad = request.json['situacao_cadastral']
 
-        texto = cnae_setor(cod_setor,municipio,sit_cad)
-        datas = find_emp(texto)
-        return render_template('datatable.html', datas = datas)
+    texto = cnae_setor(cod_setor,municipio,sit_cad)
+    datas = find_emp(texto)
+    return jsonify(datas)
         
-    if request.method == 'GET':
-        return render_template('cnaeporsetor.html')
-
-@app.route('/cnaeporuf', methods = ['GET', 'POST'])
+    
+@app.route('/cnaeporuf', methods = ['POST'])
 def cnae_por_uf():
-    if request.method == 'POST':
-        texto = {}
-        texto['CNAE_fiscal'] = request.form['cnae'] 
-        texto['UF'] = request.form['estado'].upper()
-        texto = situacao_cadastral(texto,sit = request.form['sit_cad'])
-        datas = find_emp(texto)
+    print(request.json)
+    texto = {}
+    texto['CNAE_fiscal'] = request.json['cnae'] 
+    texto['UF'] = request.json['uf'].upper()
+    texto = situacao_cadastral(texto,sit = request.json['situacao_cadastral'])
+    datas = find_emp(texto)
+    return jsonify(datas)
 
-        return render_template('datatable.html', datas = datas)
 
-    if request.method == 'GET':
-        return render_template('cnaeporuf.html')
-
-@app.route('/cnaebusca', methods = ['GET', 'POST'])
+@app.route('/cnaebusca', methods = ['POST'])
 def search_cnae_meaning():
+
+    texto = {}
+    cnae_regex ={}
+    cnae_regex['$regex'] = request.json['ativ_econ']
+    texto['CNAE_sig'] = cnae_regex
+    
+    datas = find_cnae(texto)
+    print(datas)
+    return jsonify(datas)
+
+@app.route('/municipio',methods =['POST'])
+def municipio():
+    texto = {}
+    texto['Município'] = request.json['municipio'].upper()
+    texto = situacao_cadastral(texto,request.json['situacao_cadastral'])
+    
+    datas = find_emp(texto)
+    
+    return jsonify(datas)
+
+
+@app.route('/socios', methods = ['POST'])
+def socios_attach_to_cnpj():
+    
+    cnpj = request.json['cnpj']
+    texto = {}
+    texto['cnpj'] = cnpj.strip()
+    
+    datas = find_soc(texto)
+    print(datas)
+    return jsonify(datas)
+    
+
+@app.route('/socios/nome',methods =['POST'])
+def socios_nome():
+    nome_socio = request.json['nome']
+    texto = {}
+    texto['nome_socio'] = nome_socio.upper()
+    datas = find_cnpj_attached_to_socios(texto)
+
+    return jsonify(datas)
+
+
+
+        
+
+@app.route('/graficos',methods=['GET', 'POST'])
+def graficos():
     if request.method == 'POST':
         
+        cidade = request.json['municipio']
         texto = {}
-        cnae_regex ={}
-        cnae_regex['$regex'] = request.form['ativ_econom']
-        texto['CNAE_sig'] = cnae_regex
+        texto['Município'] = cidade.upper()
         
-        datas = find_cnae(texto)
-
-        return render_template('datatable_ativ_econ.html', datas = datas)
+        data = render_pie_chart(texto)
+        print(data)
+                
+        return jsonify({'lista':data})
         
-    if request.method == 'GET':
-
-        return render_template('cnaebusca.html')
-
-#!Daqui pra baixo preciso reescrever usando o highchart ao invés do matplotlib
-# @app.route('/graficos',methods=['GET', 'POST'])
-# def graficos():
-#     if request.method == 'POST':
-#         client = MongoClient()
-#         db = client.dados_empresas
-#         graficos = db.empresas_ativas
-        
-#         cidade = request.form['municipio']
-#         texto = {}
-#         texto['Município'] = cidade.upper()
-        
-#         
-#         results = graficos.find(texto,{'_id': 0, 'data':0})
-        
-#         alfabeto = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U']
-        
-#         lista = []
-        
-#         for i in results:
-#             for n in alfabeto:
-#                 lista.append(i[n])
-        
-#         
-        
-#         labels = ['Agricultura,pecuária,prod.florestal,pesca','Indústrias extrativas','Indústrias de transformação',
-#         'Eletricidade e gás','Água,esgoto,ativ.gest.resíduos','Construçãp','Comércio,reparação de veículos',
-#         'Transporte, armazenagem e correio','Alojamento e alimentação','Informação e comunicação',
-#         'Ativ.financeiras de seguros e serv.rel.','Atividades imobiliárias','At. profissionais tec. e científicas',
-#         'Ativ.administrativas e serv. complementares','Admin.pública,defesa e seguridade social','Educação',
-#         'Saúde humana e serviços sociais','Artes,cultura,esporte e recreação','Outras ativ. de serviços',
-#         'Serviços domésticos','Org.internacionais e outras inst.extraterritoriais']
-        
-#         data = lista
-#         explode = (0,0.1,0,0)
-        
-#         ax =plt.gca()
-        
-#         wedges, texts = ax.pie(data, colors =['lightgray','lightcoral','firebrick','red','peru','orange','gold','yellow',
-#                                     'olive','yellowgreen','lawngreen','green','aquamarine','lightseagreen',
-#                                     'deepskyblue','blueviolet','violet','magenta','crimson','black','pink',
-#                                     'darkolivegreen','dodgerblue'])
-#         plt.rcParams['figure.figsize'] = (15,8)
-#         ax.legend(wedges,labels,
-#                 title="Setores",
-#                 loc="center left",
-#                 bbox_to_anchor=(1, 0, 0.5, 1))
-        
-#         #plt.setp(autotexts, size=8, weight="bold")
-        
-#         titulo = 'Empresas por setor - ' + cidade.upper()
-#         ax.set_title(titulo)
-        
-#         nome = './static/' +  cidade +'.jpg'
-        
-#         plt.savefig(nome)
-        
-#         return render_template('resultadograficos.html', img = nome)
-#         #return send_file(nome,as_attachment=True)
-#     if request.method =='GET':
-#         return render_template('graficos.html')
 
 # @app.route('/graficos/empresasativas',methods = ['GET', 'POST'])
 # def empresas_ativas():
@@ -216,7 +149,7 @@ def search_cnae_meaning():
 #             parametros.append(i)
 #             valores_para_grafico.append(parametros)
 #             print('primeira pesquisa')
-#             
+            
 #         datas =[]
 #         qtd_empresas = []
         
@@ -230,11 +163,11 @@ def search_cnae_meaning():
 #         result2 = doc2.find(texto2,{'_id':0, setor.upper():1,'data':1})
 #         lista2 = list(result2)
 #         print('segunda pesquisa')
-#         
+        
 #         qtd_empresas.append(lista2[0][setor.upper()])
 #         datas.append(lista2[0]['data'])
-#         
-#         
+        
+        
 #         lista ={'A': 'AGRICULTURA, PECUÁRIA, PRODUÇÃO FLORESTAL, PESCA E AQÜICULTURA',
 #                 'B': 'INDÚSTRIAS EXTRATIVAS',
 #                 'C': 'INDÚSTRIAS DE TRANSFORMAÇÃO',

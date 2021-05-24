@@ -124,3 +124,21 @@ def cnae_setor(cod_setor, municipio, sit_cad):
             texto = situacao_cadastral(texto = texto,sit = sit_cad)
             
             return texto
+
+def render_pie_chart(texto):
+    db = connexion()
+    graficos = db.empresas_ativas
+    results = graficos.find(texto,{'_id': 0, 'data':0})
+        
+    alfabeto = [
+        'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q',
+        'R','S','T','U'
+        ]
+    
+    lista = []
+    
+    for i in results:
+        for n in alfabeto:
+            lista.append(i[n])
+            
+    return lista

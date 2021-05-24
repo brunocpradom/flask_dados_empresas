@@ -17,20 +17,23 @@
 <!--!---------------CNAE------------------>
 
               <!--específico-->
-<form method = 'post' class='container tab-content' id='cnae-especifico-form'>
+<form method = 'post' class='container tab-content' id='-form-form'>
   <div class="mb-3">
-      <input type="text" class="form-control invbord" id="exampleFormControlInput1" placeholder="CNAE" name = 'cnae'>
+      <input type="text" class="form-control invbord" id="cnae-especifico-form"
+      placeholder="CNAE" name = 'cnae'>
   </div>
   <div class="mb-3">
-    <input type="text" class="form-control invbord" id="exampleFormControlInput1"   placeholder="Município" name = 'municipio'>
+    <input type="text" class="form-control invbord" id="municipio-cnae-especifico"
+      placeholder="Município" name = 'municipio'>
   </div>
-  <select class="form-select invbord" aria-label="Default select example" name = sit_cad>
+  <select class="form-select invbord" aria-label="Default select example" 
+  name = sit_cad, id='sit_cad-cnae-especifico'>
     <option selected>Situação cadastral</option>
     <option value="ativa">Ativa</option>
     <option value="outros">Inativas</option>
     <option value="todas">Todas</option>
   </select>
-  <a class="mdc-button" onclick="showResults()">
+  <a class="mdc-button" onclick="searchCnaeEspecifico();showResults()">
     <i class="material-icons mdc-button__icon" aria-hidden="true">search</i>
   </a>
 </form>
@@ -38,16 +41,19 @@
               <!--por setor-->
 <form method = 'post' class='container tab-content' id = 'cnae-setor-form'>
   <div class="mb-3">
-    <input type="text" class="form-control invbord" id="exampleFormControlInput1" placeholder="Município" name = 'municipio'>
+    <input type="text" class="form-control invbord" id="municipio-cnae-setor" 
+    placeholder="Município" name = 'municipio'>
   </div>
 
-  <select class="form-select invbord" aria-label="Default select example" name=sit_cad >
+  <select class="form-select invbord" aria-label="Default select example" name=sit_cad 
+  id = 'situacao-cadastral_cnae-setor'>
   <option selected>Situação cadastral</option>
   <option value="ativa">Ativa</option>
   <option value="outros">Inativas</option>
   <option value="todas">Todas</option>
   </select>
-  <select class="form-select invbord" aria-label="Default select example" name='cod_setor' >
+  <select class="form-select invbord" aria-label="Default select example" name='cod_setor' 
+  id = 'codigo-setor-cnae'>
   <option selected>Código do setor</option>
   <option value="A">AGRICULTURA, PECUÁRIA, PRODUÇÃO FLORESTAL, PESCA E AQÜICULTURA</option>
   <option value="B">INDÚSTRIAS EXTRATIVAS</option>
@@ -72,27 +78,28 @@
   <option value="U">ORGANISMOS INTERNACIONAIS E OUTRAS INSTITUIÇÕES EXTRATERRITORIAIS</option>
   </select>
 
-  <a class="mdc-button" onclick='showResults()'>
+  <a class="mdc-button" onclick='searchCnaeSetor();showResults()'>
     <i class="material-icons mdc-button__icon" aria-hidden="true">search</i>
   </a>
 </form>
               <!--por uf-->
 <form method = 'POST' class='container tab-content' id='cnae-uf-form'>
   <div class="mb-3">
-    <input type="text" class="form-control invbord" id="exampleFormControlInput1" placeholder="CNAE" name = 'cnae'>
+    <input type="text" class="form-control invbord" id="cnae-by-uf-form" placeholder="CNAE" name = 'cnae'>
   </div>
   <div class="mb-3">
   
-  <input type="text" class="form-control invbord" id="exampleFormControlInput1"   placeholder="Estado" name = 'estado'>
+  <input type="text" class="form-control invbord" id="uf-cnae-form"   placeholder="Estado" name = 'estado'>
   </div>
 
-  <select class="form-select invbord" aria-label="Default select example" name = sit_cad>
+  <select class="form-select invbord" aria-label="Default select example" name = sit_cad
+  id ='situacao_cadastral-cnae_uf'>
   <option selected>Situação cadastral</option>
   <option value="ativa">Ativa</option>
   <option value="outros">Inativas</option>
   <option value="todas">Todas</option>
   </select>
-  <a class="mdc-button" onclick='showResults()'>
+  <a class="mdc-button" onclick='searchCnaeUF();showResults()'>
   <i class="material-icons mdc-button__icon" aria-hidden="true">search</i>
   </a>
 
@@ -102,11 +109,11 @@
 <form method = 'post' class='container tab-content' id='cnae-busca-form'>
   <div class='container'>
     <div class="mb-3">
-      <input type="text" class="form-control invbord" id="exampleFormControlInput1" placeholder="Atividade Econômica" name = 'ativ_econom'>
+      <input type="text" class="form-control invbord" id="ativ_economica" placeholder="Atividade Econômica" name = 'ativ_econom'>
     </div>
-    <button class="mdc-button">
+    <a class="mdc-button" onclick=searchAtivEcon()>
       <i class="material-icons mdc-button__icon" aria-hidden="true">search</i>
-    </button>
+    </a>
   </div>
 </form>
 
@@ -131,33 +138,34 @@
               <!--cnpj-->
 <form method='POST' class='container tab-content' id='socios-cnpj-form'>
   <div class="mb-3">
-    <input type="text" class="form-control invbord" id="exampleFormControlInput1" placeholder="Digite o CNPJ" name = 'cnpj'>
+    <input type="text" class="form-control invbord" placeholder="Digite o CNPJ" 
+    name = 'cnpj' id='socios-cnpj-input'>
   </div>
-  <button class="mdc-button">
+  <a class="mdc-button" onclick="searchSociosCnpj();showSociosResults()">
     <i class="material-icons mdc-button__icon" aria-hidden="true">search</i>
-  </button>
+  </a>
 </form>
               <!--nome-->
 
 <form method='POST' class='container tab-content' id='socios-nome-form'>
   <div class="mb-3">
-    <input type="text" class="form-control invbord" id="exampleFormControlInput1" placeholder="Nome do sócio" name = 'nome'>
+    <input type="text" class="form-control invbord" id="socios-cnpj-nome" placeholder="Nome do sócio" name = 'nome'>
   </div>
-  <button class="mdc-button">
+  <a class="mdc-button" onclick="searchSociosNome()">
   <i class="material-icons mdc-button__icon" aria-hidden="true">search</i>
-  </button>
+  </a>
 </form>
 
 <!--!----------GRAFICOS---------------->
 <!--empresas por setor-->
 <form method ='POST' class='container tab-content' id='graficos-empresas-por-setor'>
   <div class='mb-3'>
-    <input type="text" class="form-control invbord" id="exampleFormControlInput1" 
+    <input type="text" class="form-control invbord" id="municipio-grafico-pie" 
     placeholder="Município" name = 'municipio'>
   </div>
-<button class="mdc-button">
+<a class="mdc-button" onclick= 'renderPieChart();showChartResults()'>
   <i class="material-icons mdc-button__icon" aria-hidden="true">search</i>
-</button>
+</a>
 </form>
 
 <!--empresas ativas-->
@@ -223,20 +231,71 @@
           </tr>
         </thead>          
           <tbody id='datatable-results'>
-              {%for data in datas%}
-            <tr>
-              <th scope="row"></th>
-              {%for file in data%}
-              <td>{{data[file]}}</td>
-              {%endfor%}
-            </tr>
-          {%endfor%}
+              
         </tbody>
       </table>
   </div>
 </div>
 
+<!--!---------DATATABLE SOCIOS-------------->
 
+<div class = 'table-responsive tab-content' id = 'socios-results-datatable'>
+  <table class="table">
+      <thead class= 'table'>
+        <tr>
+          <th scope="col"></th>
+          <th scope="col">CNPJ</th>
+          <th scope="col">Tipo de sócio</th>
+          <th scope="col">Nome do sócio</th>
+          <th scope="col">Cnpj_Cpf</th>
+          <th scope="col">Cod. qualificação</th>
+          <th scope="col">Perc. capital</th>
+          <th scope="col">Data de entrada</th>
+          <th scope="col">Cod. país ext.</th>
+          <th scope="col">Nome país ext.</th>
+          <th scope="col">Cpf repres.</th>
+          <th scope="col">Nome repres.</th>
+          <th scope="col">Cód. qual. represe.</th>
+        </tr>
+      </thead>
+        <tbody id='socios-results'>
+            
+        </tbody>
+    </table>
+  </div>
+
+
+<!--!-------DATATABLE ATIVIDADE ECONOMICA----->
+
+
+<div class = 'table-responsive tab-content' id='atividade-economica-table'>
+  <table class="table">
+      <thead class= 'table'>
+        <tr>
+          <th scope="col"></th>
+          <th scope="col">CNAE</th>
+          <th scope="col">Significado</th>
+        </tr>
+      </thead>
+        
+      <tbody id='atividade-economica-results'>
+            
+      </tbody>
+    </table>
+  </div>
+
+<!--!-------------CHART RESULTS------------->
+
+<div class = 'tab-content' id='chart-results'>
+  
+<figure class="highcharts-figure">
+  <div id="container"></div>
+  <p class="highcharts-description">
+      
+  </p>
+</figure>
+
+</div>
 {%endblock%}
 
 {%block footer%}
@@ -303,7 +362,7 @@
         <div class="mdc-tab-scroller__scroll-content" >
   
           <a href='#' class="mdc-tab mdc-tab--active cnae" role="tab" 
-          aria-selected="true" tabindex="0"  id='cnae-especifico' onclick="changeCnae(event,'cnae-especifico-form')">
+          aria-selected="true" tabindex="0"  id='-form' onclick="changeCnae(event,'-form-form')">
   
             <span class="mdc-tab__content" >
               <span class="mdc-tab__icon material-icons" aria-hidden="true">fiber_manual_record</span>
@@ -402,7 +461,8 @@
     <div class="mdc-tab-scroller__scroll-area">
       <div class="mdc-tab-scroller__scroll-content" >
 
-        <a href='#' class="mdc-tab grafico" role="tab" aria-selected="true" tabindex="0"  id ="graficos-setor" onclick="changeChart(event,'graficos-empresas-por-setor')">
+        <a href='#' class="mdc-tab grafico" role="tab" aria-selected="true" 
+        tabindex="0"  id ="graficos-setor" onclick="changeChart(event,'graficos-empresas-por-setor');">
 
           <span class="mdc-tab__content" >
             <span class="mdc-tab__icon material-icons" aria-hidden="true">fiber_manual_record</span>
@@ -454,7 +514,7 @@
               <span class="mdc-tab__ripple"></span>
             </a>
 <!--CNAE-->
-            <a href ='#' class="mdc-tab mdc-tab--active" role="tab" aria-selected="true" id = 'teste' tabindex="1"  onclick="changeTabContent(event,'cnae-especifico-form');showCnaeOptions()">
+            <a href ='#' class="mdc-tab mdc-tab--active" role="tab" aria-selected="true" id = 'teste' tabindex="1"  onclick="changeTabContent(event,'-form-form');showCnaeOptions()">
               <span class="mdc-tab__content">
                 <span class="mdc-tab__icon material-icons" aria-hidden="true">fiber_manual_record</span>
                 <span class="mdc-tab__text-label">CNAE</span>
@@ -525,11 +585,93 @@
           }
       };
       var data = JSON.stringify({"cnpj": cnpj });
-      console.log(data)
+      
       request.send(data);
       }
 
-      function searchMunicipio(){
+    function searchCnaeEspecifico(){
+      var cnae = document.getElementById('cnae-especifico-form').value
+      var municipio = document.getElementById('municipio-cnae-especifico').value
+      var situacao_cadastral=document.getElementById('sit_cad-cnae-especifico').value
+
+      request = new XMLHttpRequest();
+
+      request.open('POST', "{{url_for('cnae')}}");
+      request.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+      request.onload = function() {
+          if (request.status === 200){
+            createDataTable()
+            showResults()
+          }
+          else if (request.status !== 200) {
+              console.log(request.status)
+          }
+      };
+      var data = JSON.stringify({
+        "cnae": cnae,
+        "municipio":municipio,
+        "situacao_cadastral":situacao_cadastral 
+      });
+      
+      request.send(data);
+    }
+
+    function searchCnaeSetor(){
+      
+      var municipio = document.getElementById('municipio-cnae-setor').value
+      var situacao_cadastral=document.getElementById('situacao-cadastral_cnae-setor').value
+      var codigo_setor = document.getElementById('codigo-setor-cnae').value
+
+      request = new XMLHttpRequest();
+
+      request.open('POST', "{{url_for('cnae_por_setor')}}");
+      request.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+      request.onload = function() {
+          if (request.status === 200){
+            createDataTable()
+            showResults()
+          }
+          else if (request.status !== 200) {
+              console.log(request.status)
+          }
+      };
+      var data = JSON.stringify({
+        "municipio":municipio,
+        "situacao_cadastral":situacao_cadastral ,
+        "codigo_setor" : codigo_setor
+      });
+      
+      request.send(data);
+    }
+
+    function searchCnaeUF(){
+      
+      var cnae = document.getElementById('cnae-by-uf-form').value
+      var situacao_cadastral=document.getElementById('situacao_cadastral-cnae_uf').value
+      var uf = document.getElementById('uf-cnae-form').value
+
+      request = new XMLHttpRequest();
+
+      request.open('POST', "{{url_for('cnae_por_uf')}}");
+      request.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+      request.onload = function() {
+          if (request.status === 200){
+            createDataTable()
+            showResults()
+          }
+          else if (request.status !== 200) {
+              console.log(request.status)
+          }
+      };
+      var data = JSON.stringify({        
+        "situacao_cadastral":situacao_cadastral,
+        "cnae":cnae,
+        "uf" : uf
+      });
+      request.send(data);
+    }
+
+    function searchMunicipio(){
       var municipio = document.getElementById('municipio-input').value
       var situacao_cadastral = document.getElementById('municipio-sit_cad').value
       request = new XMLHttpRequest();
@@ -553,5 +695,105 @@
       request.send(data);
       }
 
-    </script>
+      function searchSociosCnpj(){
+      var cnpj = document.getElementById('socios-cnpj-input').value
+      
+      request = new XMLHttpRequest();
+
+      request.open('POST', "{{url_for('socios_attach_to_cnpj')}}");
+      request.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+      request.onload = function() {
+          if (request.status === 200){
+            createDataTableSocios()
+            showSociosResults()
+          }
+          else if (request.status !== 200) {
+              console.log(request.status)
+          }
+      };
+      var data = JSON.stringify({
+        "cnpj": cnpj,
+        
+      });
+      console.log(data)
+      request.send(data);
+      }
+
+      function searchSociosNome(){
+      var nome = document.getElementById('socios-cnpj-nome').value
+      
+      request = new XMLHttpRequest();
+
+      request.open('POST', "{{url_for('socios_nome')}}");
+      request.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+      request.onload = function() {
+          if (request.status === 200){
+            createDataTable()
+            showResults()
+          }
+          else if (request.status !== 200) {
+              console.log(request.status)
+          }
+      };
+      var data = JSON.stringify({
+        "nome": nome,
+        
+      });
+      console.log(data)
+      request.send(data);
+      }
+
+
+      function searchAtivEcon(){
+      var atividade_economica = document.getElementById('ativ_economica').value
+      
+      request = new XMLHttpRequest();
+
+      request.open('POST', "{{url_for('search_cnae_meaning')}}");
+      request.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+      request.onload = function() {
+          if (request.status === 200){
+            createDataTableAtivEcon()
+            showAtivEconResults()
+          }
+          else if (request.status !== 200) {
+              console.log(request.status)
+          }
+      };
+      var data = JSON.stringify({
+        "ativ_econ": atividade_economica,
+        
+      });
+      console.log(data)
+      request.send(data);
+      }
+      
+    function renderPieChart(){
+      var municipio = document.getElementById('municipio-grafico-pie').value
+      
+      request = new XMLHttpRequest();
+
+      request.open('POST', "{{url_for('graficos')}}");
+      request.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+      request.onload = function() {
+          if (request.status === 200){
+            console.log(request.responseText)
+            var lista = JSON.parse(request.responseText)['lista']
+            console.log(lista)
+            buildChart(municipio,lista)
+
+          }
+          
+          else if (request.status !== 200) {
+              console.log(request.status)
+          }
+      };
+      var data = JSON.stringify({
+        "municipio": municipio,
+      });
+      request.send(data);
+      }
+
+  </script>
+
 {%endblock%}
